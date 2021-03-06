@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmConfig } from './config/db.config';
+import { UserModule } from './user/user.module';
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forRoot(TypeOrmConfig), UserModule],
   controllers: [],
   providers: [],
 })
