@@ -1,8 +1,10 @@
+import { Photo } from 'src/photo/photo.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -29,6 +31,9 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true })
   avatar: string;
+
+  @OneToMany(() => Photo, (photo) => photo.user)
+  photos: Photo[];
 
   @CreateDateColumn()
   createdAt: Date;
