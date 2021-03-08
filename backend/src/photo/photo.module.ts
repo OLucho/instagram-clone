@@ -9,5 +9,6 @@ import { PhotoService } from './photo.service';
   imports: [TypeOrmModule.forFeature([PhotoRepository]), UserModule],
   controllers: [PhotoController],
   providers: [PhotoService],
+  exports: [PhotoService],
 })
 export class PhotoModule {}
