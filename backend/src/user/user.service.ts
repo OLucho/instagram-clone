@@ -19,6 +19,9 @@ export class UserService {
   ) {}
 
   async createUser(validationUserDto: ValidationUserDto): Promise<User> {
+    const { username, email } = validationUserDto;
+    await this.isUserAlreadyCreated(username, email);
+
     const userEntity = fromDtoToEntity(validationUserDto);
     return this.userRepository.createUser(userEntity);
   }
@@ -36,8 +39,19 @@ export class UserService {
     return this.userRepository.updateAvatar(avatar, user);
   }
 
-  async isUserAlreadyCreated(username: string, email: string): Promise<User> {
-    return this.userRepository.isUserAlreadyCreated(username, email);
+  async isUserAlreadyCreated(username: string, email: string): Promise<void> {
+    const user = await this.userRepository.isUserAlreadyCreated(
+      username,
+      email,
+    );
+    if (user) {
+      if (user.username === username) {
+        throw new BadRequestException('Username Already Exists');
+      }
+      if (user.email === email) {
+        throw new BadRequestException('Email Already Exists');
+      }
+    }
   }
 
   async signIn(signInDto: SignInDto): Promise<{ accessToken: string }> {

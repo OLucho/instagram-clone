@@ -28,17 +28,6 @@ export class UserController {
   async createUser(
     @Body() validationUserDto: ValidationUserDto,
   ): Promise<User> {
-    const { username, email } = validationUserDto;
-    const user = await this.userService.isUserAlreadyCreated(username, email);
-
-    if (user) {
-      if (user.username === username) {
-        throw new BadRequestException('Username Already Exists');
-      }
-      if (user.email === email) {
-        throw new BadRequestException('Email Already Exists');
-      }
-    }
     return this.userService.createUser(validationUserDto);
   }
 
