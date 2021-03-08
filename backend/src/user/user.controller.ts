@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UseGuards,
   UsePipes,
@@ -41,6 +42,12 @@ export class UserController {
   @Get('/signin')
   signIn(@Body() signInDto: SignInDto) {
     return this.userService.signIn(signInDto);
+  }
+
+  @Get('/:username')
+  async view(@Param('username') username: string) {
+    const user = await this.userService.getUserByUsername(username);
+    return user;
   }
 
   @Get('/me')

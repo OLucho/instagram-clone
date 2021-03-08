@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './user.entity';
@@ -17,6 +21,15 @@ export class UserService {
   async createUser(validationUserDto: ValidationUserDto): Promise<User> {
     const userEntity = fromDtoToEntity(validationUserDto);
     return this.userRepository.createUser(userEntity);
+  }
+
+  async getUserByUsername(username: string): Promise<User> {
+    const user = await this.userRepository.getUserByUsername(username);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    delete user.password;
+    return user;
   }
 
   async isUserAlreadyCreated(username: string, email: string): Promise<User> {

@@ -7,6 +7,10 @@ export class UserRepository extends Repository<User> {
     return user.save();
   }
 
+  async getUserByUsername(username: string) {
+    return this.findOne({ where: { username } });
+  }
+
   async isUserAlreadyCreated(username: string, email: string): Promise<User> {
     return this.createQueryBuilder()
       .where('username = :username OR email = :email', {
