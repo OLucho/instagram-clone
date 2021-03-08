@@ -1,4 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
+import { SignInDto } from './dto/signIn.dto';
 import { User } from './user.entity';
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -12,6 +13,14 @@ export class UserRepository extends Repository<User> {
         username,
         email,
       })
+      .getOne();
+  }
+
+  async signIn(signInDto: SignInDto): Promise<User> {
+    const { username } = signInDto;
+
+    return this.createQueryBuilder('user')
+      .where('user.username = :username', { username })
       .getOne();
   }
 }
