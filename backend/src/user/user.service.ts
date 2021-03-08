@@ -32,11 +32,15 @@ export class UserService {
     return user;
   }
 
+  async updateAvatar(avatar: string, user: User): Promise<void> {
+    return this.userRepository.updateAvatar(avatar, user);
+  }
+
   async isUserAlreadyCreated(username: string, email: string): Promise<User> {
     return this.userRepository.isUserAlreadyCreated(username, email);
   }
 
-  async signIn(signInDto: SignInDto) {
+  async signIn(signInDto: SignInDto): Promise<{ accessToken: string }> {
     const { password } = signInDto;
     const user = await this.userRepository.signIn(signInDto);
     if (!user) {

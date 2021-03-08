@@ -7,7 +7,7 @@ export class UserRepository extends Repository<User> {
     return user.save();
   }
 
-  async getUserByUsername(username: string) {
+  async getUserByUsername(username: string): Promise<User> {
     return this.findOne({ where: { username } });
   }
 
@@ -18,6 +18,10 @@ export class UserRepository extends Repository<User> {
         email,
       })
       .getOne();
+  }
+
+  async updateAvatar(avatar: string, user: User): Promise<void> {
+    user.avatar = avatar;
   }
 
   async signIn(signInDto: SignInDto): Promise<User> {
