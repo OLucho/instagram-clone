@@ -2,11 +2,16 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from './decorator/get.user';
 import { ValidationUserDto } from './dto/create.user.dto';
+import { SignInDto } from './dto/signIn.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
@@ -31,5 +36,16 @@ export class UserController {
       }
     }
     return this.userService.createUser(validationUserDto);
+  }
+
+  @Get('/signin')
+  signIn(@Body() signInDto: SignInDto) {
+    return this.userService.signIn(signInDto);
+  }
+
+  @Get('/me')
+  @UseGuards(AuthGuard())
+  me(@GetUser() user: User) {
+    return user;
   }
 }
