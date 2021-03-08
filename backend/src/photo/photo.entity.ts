@@ -23,6 +23,9 @@ export class Photo extends BaseEntity {
   @ManyToOne(() => User, (user) => user.photos)
   user: User;
 
+  @Column()
+  userId: number;
+
   @CreateDateColumn()
   createdAt: Date;
 

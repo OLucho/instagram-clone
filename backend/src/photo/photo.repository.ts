@@ -9,8 +9,13 @@ export class PhotoRepository extends Repository<Photo> {
     photo.body = photoBody;
     photo.key = key;
     photo.user = user;
+    photo.userId = user.id;
     await photo.save();
 
     return photo;
+  }
+
+  async getPhotoById(id: number) {
+    return this.findOne({ where: { id }, relations: ['user'] });
   }
 }

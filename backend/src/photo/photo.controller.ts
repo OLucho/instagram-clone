@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   UploadedFile,
   UseGuards,
@@ -31,5 +33,12 @@ export class PhotoController {
     const photoBody = body.body;
 
     return this.photoService.uploadPhoto(key, user, photoBody);
+  }
+
+  @Get('/:id')
+  @UseGuards(AuthGuard())
+  @UsePipes(ValidationPipe)
+  async viewPhoto(@Param('id') id: number, @GetUser() user: User) {
+    return this.photoService.getPhotoById(id, user);
   }
 }
