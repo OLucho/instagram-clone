@@ -1,5 +1,4 @@
-import { Like } from 'src/like/like.entity';
-import { User } from 'src/user/user.entity';
+import { Photo } from 'src/photo/photo.entity';
 import {
   BaseEntity,
   Column,
@@ -12,24 +11,18 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Photo extends BaseEntity {
+export class Like extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  body: string;
-
-  @Column()
-  key: string;
-
-  @ManyToOne(() => User, (user) => user.photos)
-  user: User;
-
-  @OneToMany(() => Like, (like) => like.photo)
-  likes;
-
-  @Column()
   userId: number;
+
+  @Column()
+  photoId: string;
+
+  @OneToMany(() => Photo, (photo) => photo.likes)
+  photo: Photo;
 
   @CreateDateColumn()
   createdAt: Date;
