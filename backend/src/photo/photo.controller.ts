@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -40,5 +42,15 @@ export class PhotoController {
   @UsePipes(ValidationPipe)
   async viewPhoto(@Param('id') id: number, @GetUser() user: User) {
     return this.photoService.getPhotoById(id, user);
+  }
+
+  @Delete('/:id')
+  @UseGuards(AuthGuard())
+  @UsePipes(ValidationPipe)
+  async DeletePhoto(
+    @Param('id') id: number,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.photoService.deletePhotoById(id, user);
   }
 }
