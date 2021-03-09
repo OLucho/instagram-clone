@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Like } from 'src/like/like.entity';
+import { Comment } from 'src/comment/comment.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -38,6 +39,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Like, (like) => like.user)
   likes;
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
   @CreateDateColumn()
   createdAt: Date;
