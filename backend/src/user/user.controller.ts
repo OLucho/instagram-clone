@@ -53,9 +53,9 @@ export class UserController {
     return this.userService.updateAvatar(avatar, user);
   }
 
-  @Get('/me')
+  @Get('/auth/me')
   @UseGuards(AuthGuard())
-  me(@GetUser() user: User): User {
+  getUserFromToken(@GetUser() user: User): User {
     return user;
   }
 }
