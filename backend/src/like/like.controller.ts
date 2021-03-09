@@ -22,13 +22,18 @@ export class LikeController {
   @Post('/:id')
   @UseGuards(AuthGuard())
   @UsePipes(ValidationPipe)
-  async saveLike(@Param('id') id: number, @GetUser() user: User) {
+  async handleLike(@Param('id') id: number, @GetUser() user: User) {
     const photo = await this.photoService.getPhotoById(id);
 
-    const like = await this.likeService.findLikeByUserAndLikeId(
+    const like = await this.likeService.findLikeByUserAndPhotoId(
       user.id,
       photo.id,
     );
-    return like;
+
+    if (!like) {
+      return this.likeService.addLike(user.id, photo.id);
+    } else {
+      return this.likeService.removeLike(like);
+    }
   }
 }

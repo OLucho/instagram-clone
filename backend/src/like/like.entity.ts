@@ -1,4 +1,5 @@
 import { Photo } from 'src/photo/photo.entity';
+import { User } from 'src/user/user.entity';
 import {
   BaseEntity,
   Column,
@@ -19,10 +20,13 @@ export class Like extends BaseEntity {
   userId: number;
 
   @Column()
-  photoId: string;
+  photoId: number;
 
   @OneToMany(() => Photo, (photo) => photo.likes)
   photo: Photo;
+
+  @OneToMany(() => User, (user) => user.likes)
+  user: User;
 
   @CreateDateColumn()
   createdAt: Date;

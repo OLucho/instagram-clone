@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Like } from 'src/like/like.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -34,6 +35,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Photo, (photo) => photo.user)
   photos: Photo[];
+
+  @OneToMany(() => Like, (like) => like.user)
+  likes;
 
   @CreateDateColumn()
   createdAt: Date;
