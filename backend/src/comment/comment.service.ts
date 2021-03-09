@@ -20,7 +20,7 @@ export class CommentService {
     user: User,
     photoId: number,
     createCommentDto: CreateCommentDto,
-  ) {
+  ): Promise<Comment> {
     const comment = fromDtoToEntity(createCommentDto, user, photoId);
     const commentCreated = await this.commentRepository.createComment(comment);
     return await this.commentRepository.findById(commentCreated.id);
@@ -34,7 +34,7 @@ export class CommentService {
     return comment;
   }
 
-  async deleteComment(comment: Comment, userId: number) {
+  async deleteComment(comment: Comment, userId: number): Promise<void> {
     if (comment.userId !== userId) {
       throw new UnauthorizedException('Unauthorized');
     }

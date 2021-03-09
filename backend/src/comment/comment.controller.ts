@@ -12,6 +12,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { PhotoService } from 'src/photo/photo.service';
 import { GetUser } from 'src/user/decorator/get.user';
 import { User } from 'src/user/user.entity';
+import { Comment } from './comment.entity';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/comment.dto';
 
@@ -25,19 +26,18 @@ export class CommentController {
   @Post('/:photoId')
   @UsePipes(ValidationPipe)
   @UseGuards(AuthGuard())
-  async createUser(
+  async createComment(
     @GetUser() user: User,
     @Body() createCommentDto: CreateCommentDto,
     @Param('photoId') photoId: number,
-  ) {
+  ): Promise<Comment> {
     await this.photoService.getPhotoById(photoId);
 
-    const comment = await this.commentService.createComment(
+    return await this.commentService.createComment(
       user,
       photoId,
       createCommentDto,
     );
-    return comment;
   }
 
   @Delete('/:commentId')
