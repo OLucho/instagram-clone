@@ -7,10 +7,10 @@ export class LikeRepository extends Repository<Like> {
     userId: number,
     photoId: number,
   ): Promise<Like> {
-    return this.createQueryBuilder('like')
-      .where('like.photoId = :photoId AND like.userId = :userId', {
-        photoId,
+    return await this.createQueryBuilder('like')
+      .where('like.userId = :userId AND like.photoId = :photoId', {
         userId,
+        photoId,
       })
       .getOne();
   }

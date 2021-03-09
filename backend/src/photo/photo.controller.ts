@@ -47,14 +47,23 @@ export class PhotoController {
   async viewPhoto(
     @Param('id') id: number,
     @GetUser() user: User,
-  ): Promise<{ photo: Photo; isAuthor: boolean }> {
+  ): Promise<{ photo: Photo; isAuthor: boolean; isLiked: boolean }> {
     const photo = await this.photoService.getPhotoById(id);
     let isAuthor = false;
     if (photo.userId === user.id) {
       isAuthor = true;
     }
 
-    return { photo, isAuthor };
+    let isLiked = false;
+    const like = await this.likeService.findLikeByUserAndPhotoId(
+      user.id,
+      photo.id,
+    );
+    if (like) {
+      isLiked = true;
+    }
+
+    return { photo, isAuthor, isLiked };
   }
 
   @Delete('/:id')
