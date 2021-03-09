@@ -1,3 +1,4 @@
+import { Photo } from 'src/photo/photo.entity';
 import { User } from 'src/user/user.entity';
 import {
   BaseEntity,
@@ -5,7 +6,6 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -23,6 +23,9 @@ export class Comment extends BaseEntity {
 
   @ManyToOne(() => User, (user) => user.comments)
   user: User;
+
+  @ManyToOne(() => Photo, (photo) => photo.comment)
+  photo: Photo;
 
   @Column()
   photoId: number;
