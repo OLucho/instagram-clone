@@ -22,7 +22,7 @@ export class Like extends BaseEntity {
   @Column()
   photoId: number;
 
-  @OneToMany(() => Photo, (photo) => photo.likes)
+  @ManyToOne(() => Photo, (photo) => photo.likes)
   photo: Photo;
 
   @OneToMany(() => User, (user) => user.likes)

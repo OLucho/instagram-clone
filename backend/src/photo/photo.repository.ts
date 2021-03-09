@@ -21,7 +21,7 @@ export class PhotoRepository extends Repository<Photo> {
   }
 
   async getPhotoById(id: number): Promise<Photo> {
-    return this.findOne({ where: { id }, relations: ['user'] });
+    return this.findOne({ where: { id }, relations: ['user', 'likes'] });
   }
 
   async deletePhotoById(id: number): Promise<void> {

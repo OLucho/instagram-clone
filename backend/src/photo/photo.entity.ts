@@ -26,7 +26,7 @@ export class Photo extends BaseEntity {
   user: User;
 
   @OneToMany(() => Like, (like) => like.photo)
-  likes;
+  likes: Like[];
 
   @Column()
   userId: number;
