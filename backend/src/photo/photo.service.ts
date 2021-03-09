@@ -17,11 +17,19 @@ export class PhotoService {
   async uploadPhoto(key: string, user: User, photoBody: string) {
     const photo = await this.photoRepository.uploadPhoto(key, user, photoBody);
 
+    const photoCreated = await this.getPhotoById(photo.id);
     let isAuthor = false;
-    if (photo.userId === user.id) {
+    if (photoCreated.userId === user.id) {
       isAuthor = true;
     }
-    return { photo, isAuthor };
+
+    let isLiked = false;
+    photoCreated.likes.map((like) => {
+      if (like.userId === user.id) {
+        isLiked = true;
+      }
+    });
+    return { photo, isAuthor, isLiked };
   }
 
   async getPhotoById(id: number): Promise<Photo> {
