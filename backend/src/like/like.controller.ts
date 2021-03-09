@@ -23,6 +23,6 @@ export class LikeController {
   @UseGuards(AuthGuard())
   @UsePipes(ValidationPipe)
   async saveLike(@Param('id') id: number, @GetUser() user: User) {
-    return await this.photoService.getPhotoById(id, user);
+    return await this.photoService.getPhotoById(id);
   }
 }

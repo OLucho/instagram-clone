@@ -24,27 +24,20 @@ export class PhotoService {
     return { photo, isAuthor };
   }
 
-  async getPhotoById(
-    id: number,
-    user: User,
-  ): Promise<{ photo: Photo; isAuthor: boolean }> {
+  async getPhotoById(id: number): Promise<Photo> {
     const photo = await this.photoRepository.getPhotoById(id);
     if (!photo) {
       throw new NotFoundException('Photo not found');
     }
 
-    let isAuthor = false;
-    if (photo.userId === user.id) {
-      isAuthor = true;
-    }
-    return { photo, isAuthor };
+    return photo;
   }
 
   async deletePhotoById(id: number, user: User): Promise<void> {
-    const photo = await this.getPhotoById(id, user);
-    if (photo.photo.userId !== user.id) {
+    const photo = await this.getPhotoById(id);
+    if (photo.userId !== user.id) {
       throw new UnauthorizedException('Unauthorized');
     }
-    return this.photoRepository.deletePhotoById(photo.photo.id);
+    return this.photoRepository.deletePhotoById(photo.id);
   }
 }
