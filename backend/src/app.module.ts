@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { PhotoModule } from './photo/photo.module';
 import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
+import { FollowModule } from './follow/follow.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(TypeOrmConfig),
@@ -12,6 +13,7 @@ import { CommentModule } from './comment/comment.module';
     PhotoModule,
     LikeModule,
     CommentModule,
+    FollowModule,
   ],
   controllers: [],
   providers: [],
