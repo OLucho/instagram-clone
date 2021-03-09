@@ -29,7 +29,7 @@ export class PhotoService {
         isLiked = true;
       }
     });
-    return { photo, isAuthor, isLiked };
+    return { photoCreated, isAuthor, isLiked };
   }
 
   async getPhotoById(id: number): Promise<Photo> {
