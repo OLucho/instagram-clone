@@ -9,4 +9,12 @@ export class CommentRepository extends Repository<Comment> {
   async findById(id) {
     return this.findOne({ where: { id }, relations: ['user'] });
   }
+
+  async getCommentById(id) {
+    return this.findOne({ where: { id } });
+  }
+
+  async deleteComment(comment: Comment): Promise<void> {
+    this.delete(comment);
+  }
 }

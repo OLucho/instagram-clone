@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Param,
   Post,
   UseGuards,
@@ -37,5 +38,17 @@ export class CommentController {
       createCommentDto,
     );
     return comment;
+  }
+
+  @Delete('/:commentId')
+  @UsePipes(ValidationPipe)
+  @UseGuards(AuthGuard())
+  async deletePhoto(
+    @GetUser() user: User,
+    @Param('commentId') commentId: number,
+  ) {
+    const comment = await this.commentService.getCommentById(commentId);
+
+    return this.commentService.deleteComment(comment, user.id);
   }
 }
