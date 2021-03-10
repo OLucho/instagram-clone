@@ -1,12 +1,9 @@
-import { Photo } from 'src/photo/photo.entity';
 import { User } from 'src/user/user.entity';
 import {
   BaseEntity,
-  Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
