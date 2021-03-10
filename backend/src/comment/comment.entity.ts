@@ -21,10 +21,10 @@ export class Comment extends BaseEntity {
   @Column()
   userId: number;
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @ManyToOne(() => User, (user) => user.comments, { onDelete: 'CASCADE' })
   user: User;
 
-  @ManyToOne(() => Photo, (photo) => photo.comment)
+  @ManyToOne(() => Photo, (photo) => photo.comment, { onDelete: 'CASCADE' })
   photo: Photo;
 
   @Column()

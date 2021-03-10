@@ -20,10 +20,10 @@ export class Follow extends BaseEntity {
   @Column()
   userFromId: number;
 
-  @ManyToOne(() => User, (user) => user.followers)
+  @ManyToOne(() => User, (user) => user.followers, { onDelete: 'CASCADE' })
   userTo: User[];
 
-  @ManyToOne(() => User, (user) => user.following)
+  @ManyToOne(() => User, (user) => user.following, { onDelete: 'CASCADE' })
   userFrom: User[];
 
   @CreateDateColumn()

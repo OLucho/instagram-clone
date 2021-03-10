@@ -24,13 +24,13 @@ export class Photo extends BaseEntity {
   @Column()
   key: string;
 
-  @ManyToOne(() => User, (user) => user.photos)
+  @ManyToOne(() => User, (user) => user.photos, { onDelete: 'CASCADE' })
   user: User;
 
-  @OneToMany(() => Like, (like) => like.photo)
+  @OneToMany(() => Like, (like) => like.photo, { onDelete: 'CASCADE' })
   likes: Like[];
 
-  @OneToMany(() => Comment, (comment) => comment.photo)
+  @OneToMany(() => Comment, (comment) => comment.photo, { onDelete: 'CASCADE' })
   comment: Comment[];
 
   @Column()
