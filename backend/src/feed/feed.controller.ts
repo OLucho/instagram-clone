@@ -6,6 +6,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Photo } from 'src/photo/photo.entity';
 import { PhotoService } from 'src/photo/photo.service';
 import { GetUser } from 'src/user/decorator/get.user';
 import { User } from 'src/user/user.entity';
@@ -23,7 +24,9 @@ export class FeedController {
   @Get()
   @UseGuards(AuthGuard())
   @UsePipes(ValidationPipe)
-  async FeedData(@GetUser() User: User) {
+  async FeedData(
+    @GetUser() User: User,
+  ): Promise<{ isAuthor: boolean; isLiked: boolean; photo: Photo }> {
     const user = await this.userService.getUserFollows(User.id);
     const arrayUsersId = user.following.map((_user) => _user.userToId);
     arrayUsersId.push(User.id); // because we also want to show our photos in feed

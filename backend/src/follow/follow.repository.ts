@@ -23,7 +23,7 @@ export class FollowRepository extends Repository<Follow> {
     return await this.delete(id);
   }
 
-  async getUserFollows(userFromId: number) {
+  async getUserFollows(userFromId: number): Promise<number> {
     return await this.createQueryBuilder('follow')
       .where('follow.userFromId = :userFromId', {
         userFromId,
@@ -31,7 +31,7 @@ export class FollowRepository extends Repository<Follow> {
       .getCount();
   }
 
-  async getUserFollowers(userToId: number) {
+  async getUserFollowers(userToId: number): Promise<number> {
     return await this.createQueryBuilder('follow')
       .where('follow.userToId = :userToId', {
         userToId,

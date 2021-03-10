@@ -9,7 +9,10 @@ export class FeedService {
     return user.following;
   }
 
-  async getFeedData(feedsPhotos, userId: number) {
+  async getFeedData(
+    feedsPhotos,
+    userId: number,
+  ): Promise<{ isAuthor: boolean; isLiked: boolean; photo: Photo }> {
     return feedsPhotos.map((photo: Photo) => {
       let isAuthor = false;
       if (photo.userId === userId) {
