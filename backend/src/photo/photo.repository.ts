@@ -36,7 +36,8 @@ export class PhotoRepository extends Repository<Photo> {
 
   async getFeedPhotos(arrayUsersId) {
     return await this.createQueryBuilder('photo')
-      .leftJoinAndSelect('photo.comment', 'comments')
+      .leftJoinAndSelect('photo.comment', 'comment')
+      .leftJoinAndSelect('comment.user', 'userComment')
       .leftJoinAndSelect('photo.user', 'postedBy')
       .leftJoinAndSelect('photo.likes', 'likes')
       .where('photo.userId IN (:...arrayUsersId)', { arrayUsersId })

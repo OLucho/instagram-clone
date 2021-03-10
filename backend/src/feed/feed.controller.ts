@@ -20,14 +20,16 @@ export class FeedController {
     private photoService: PhotoService,
   ) {}
 
-  @Get('')
+  @Get()
   @UseGuards(AuthGuard())
   @UsePipes(ValidationPipe)
-  async handleLike(@GetUser() User: User) {
+  async FeedData(@GetUser() User: User) {
     const user = await this.userService.getUserFollows(User.id);
     const arrayUsersId = user.following.map((_user) => _user.userToId);
     arrayUsersId.push(User.id); // because we also want to show our photos in feed
 
-    return await this.photoService.getFeedPhotos(arrayUsersId);
+    const feedsPhotos = await this.photoService.getFeedPhotos(arrayUsersId);
+
+    return this.feedService.getFeedData(feedsPhotos, User.id);
   }
 }
