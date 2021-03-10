@@ -20,6 +20,10 @@ export class UserRepository extends Repository<User> {
       .getOne();
   }
 
+  async getUserById(id: number) {
+    return await this.findOne({ where: { id } });
+  }
+
   async updateAvatar(avatar: string, user: User): Promise<void> {
     user.avatar = avatar;
   }

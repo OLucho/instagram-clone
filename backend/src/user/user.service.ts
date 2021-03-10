@@ -39,6 +39,15 @@ export class UserService {
     return this.userRepository.updateAvatar(avatar, user);
   }
 
+  async getUserById(id: number) {
+    const user = await this.userRepository.getUserById(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+
   async isUserAlreadyCreated(username: string, email: string): Promise<void> {
     const user = await this.userRepository.isUserAlreadyCreated(
       username,
