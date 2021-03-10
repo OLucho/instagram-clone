@@ -35,19 +35,19 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   avatar: string;
 
-  @OneToMany(() => Photo, (photo) => photo.user)
+  @OneToMany(() => Photo, (photo) => photo.user, { onDelete: 'CASCADE' })
   photos: Photo[];
 
-  @OneToMany(() => Like, (like) => like.user)
+  @OneToMany(() => Like, (like) => like.user, { onDelete: 'CASCADE' })
   likes: Like[];
 
-  @OneToMany(() => Comment, (comment) => comment.user)
+  @OneToMany(() => Comment, (comment) => comment.user, { onDelete: 'CASCADE' })
   comments: Comment[];
 
-  @OneToMany(() => Follow, (follow) => follow.userTo)
+  @OneToMany(() => Follow, (follow) => follow.userTo, { onDelete: 'CASCADE' })
   followers: Follow[];
 
-  @OneToMany(() => Follow, (follow) => follow.userFrom)
+  @OneToMany(() => Follow, (follow) => follow.userFrom, { onDelete: 'CASCADE' })
   following: Follow[];
 
   @CreateDateColumn()
