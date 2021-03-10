@@ -22,7 +22,7 @@ export class FollowController {
   @UseGuards(AuthGuard())
   async handleFollow(@Param('userId') userId: number, @GetUser() User: User) {
     const user = await this.userService.getUserById(userId);
-    if (user.id !== User.id) {
+    if (user.id === User.id) {
       throw new BadRequestException('You cant follow Yourself..');
     }
 
