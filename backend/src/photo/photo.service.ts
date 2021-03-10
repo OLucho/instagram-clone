@@ -41,6 +41,10 @@ export class PhotoService {
     return photo;
   }
 
+  async getAllUserPhotosCount(userId: number) {
+    return this.photoRepository.getAllUserPhotosCount(userId);
+  }
+
   async deletePhotoById(id: number, user: User): Promise<void> {
     const photo = await this.getPhotoById(id);
     if (photo.userId !== user.id) {

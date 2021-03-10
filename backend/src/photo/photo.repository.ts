@@ -33,4 +33,12 @@ export class PhotoRepository extends Repository<Photo> {
       throw new NotFoundException(`Photo not found`);
     }
   }
+
+  async getAllUserPhotosCount(userId: number): Promise<number> {
+    return await this.createQueryBuilder('photo')
+      .where('photo.userId = :userId', {
+        userId,
+      })
+      .getCount();
+  }
 }

@@ -42,6 +42,9 @@ export class UserController {
   @Get('/:username')
   async view(@Param('username') username: string): Promise<User> {
     const user = await this.userService.getUserByUsername(username);
+    const userPhotosCount = await this.photoService.getAllUserPhotosCount(
+      user.id,
+    );
     return user;
   }
 
