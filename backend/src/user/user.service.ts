@@ -79,4 +79,8 @@ export class UserService {
 
     return { accessToken };
   }
+
+  async getUserFollows(id: number) {
+    return await this.userRepository.getUserFollows(id);
+  }
 }

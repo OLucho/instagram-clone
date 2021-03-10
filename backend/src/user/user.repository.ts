@@ -11,6 +11,13 @@ export class UserRepository extends Repository<User> {
     return this.findOne({ where: { username }, relations: ['photos'] });
   }
 
+  async getUserFollows(id: number) {
+    return await this.findOne({
+      where: { id },
+      relations: ['following'],
+    });
+  }
+
   async isUserAlreadyCreated(username: string, email: string): Promise<User> {
     return this.createQueryBuilder()
       .where('username = :username OR email = :email', {
