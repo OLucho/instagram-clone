@@ -1,4 +1,10 @@
-import { Controller, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/user/decorator/get.user';
 import { User } from 'src/user/user.entity';
@@ -14,5 +20,17 @@ export class FollowController {
 
   @Post('/:userId')
   @UseGuards(AuthGuard())
-  async signIn(@Param('userId') userId: number, @GetUser() user: User) {}
+  async handleFollow(@Param('userId') userId: number, @GetUser() User: User) {
+    const user = await this.userService.getUserById(userId);
+    if (user.id !== User.id) {
+      throw new BadRequestException('You cant follow Yourself..');
+    }
+
+    const follow = await this.followService.getFollow(user.id, User.id); // (user to follow, user logged in)
+    if (follow) {
+      return await this.followService.deleteFollowById(follow.id);
+    } else {
+      return await this.followService.createFollow(user.id, User.id); // (user to follow, user logged in)
+    }
+  }
 }
