@@ -85,4 +85,10 @@ export class UserController {
   getUserFromToken(@GetUser() user: User): User {
     return user;
   }
+
+  @Get('/search/:term')
+  @UseGuards(AuthGuard())
+  searchUsers(@Param('term') term: string) {
+    return this.userService.searchUsers(term);
+  }
 }

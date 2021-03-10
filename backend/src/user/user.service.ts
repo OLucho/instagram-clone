@@ -83,4 +83,8 @@ export class UserService {
   async getUserFollows(id: number) {
     return await this.userRepository.getUserFollows(id);
   }
+
+  async searchUsers(term) {
+    return this.userRepository.searchUsers(term);
+  }
 }

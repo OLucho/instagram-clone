@@ -42,4 +42,10 @@ export class UserRepository extends Repository<User> {
       .where('user.username = :username', { username })
       .getOne();
   }
+
+  async searchUsers(term) {
+    return this.createQueryBuilder('user')
+      .where('user.username LIKE :term OR user.name LIKE :term', { term })
+      .getMany();
+  }
 }
