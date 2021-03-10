@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { FollowService } from 'src/follow/follow.service';
 import { PhotoService } from 'src/photo/photo.service';
 import { GetUser } from './decorator/get.user';
 import { ValidationUserDto } from './dto/create.user.dto';
@@ -24,6 +25,7 @@ export class UserController {
   constructor(
     private userService: UserService,
     private photoService: PhotoService,
+    private followService: FollowService,
   ) {}
 
   @UsePipes(ValidationPipe)
@@ -40,12 +42,31 @@ export class UserController {
   }
 
   @Get('/:username')
-  async view(@Param('username') username: string): Promise<User> {
+  @UseGuards(AuthGuard())
+  async view(@Param('username') username: string, @GetUser() User: User) {
     const user = await this.userService.getUserByUsername(username);
     const userPhotosCount = await this.photoService.getAllUserPhotosCount(
       user.id,
     );
-    return user;
+    const userFollowsCount = await this.followService.getUserFollows(user.id);
+    const userFollowersCount = await this.followService.getUserFollowers(
+      user.id,
+    );
+    let isProfile = false;
+    if (user.id === User.id) {
+      isProfile = true;
+    }
+
+    const isFollow = await this.followService.getFollow(user.id, User.id); // (users profile, user logged in)
+
+    return {
+      user,
+      userPhotosCount,
+      userFollowsCount,
+      userFollowersCount,
+      isProfile,
+      isFollow: isFollow ? true : false,
+    };
   }
 
   @Post('/avatar')

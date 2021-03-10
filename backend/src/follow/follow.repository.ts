@@ -22,4 +22,20 @@ export class FollowRepository extends Repository<Follow> {
   async deleteFollowById(id: number) {
     return await this.delete(id);
   }
+
+  async getUserFollows(userFromId: number) {
+    return await this.createQueryBuilder('follow')
+      .where('follow.userFromId = :userFromId', {
+        userFromId,
+      })
+      .getCount();
+  }
+
+  async getUserFollowers(userToId: number) {
+    return await this.createQueryBuilder('follow')
+      .where('follow.userToId = :userToId', {
+        userToId,
+      })
+      .getCount();
+  }
 }

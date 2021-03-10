@@ -8,7 +8,7 @@ export class UserRepository extends Repository<User> {
   }
 
   async getUserByUsername(username: string): Promise<User> {
-    return this.findOne({ where: { username } });
+    return this.findOne({ where: { username }, relations: ['photos'] });
   }
 
   async isUserAlreadyCreated(username: string, email: string): Promise<User> {

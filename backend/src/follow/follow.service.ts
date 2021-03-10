@@ -23,4 +23,12 @@ export class FollowService {
   async deleteFollowById(id: number) {
     return this.followRepository.deleteFollowById(id);
   }
+
+  async getUserFollows(userId: number) {
+    return this.followRepository.getUserFollows(userId);
+  }
+
+  async getUserFollowers(userId: number) {
+    return this.followRepository.getUserFollowers(userId);
+  }
 }
