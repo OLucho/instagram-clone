@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Like } from 'src/like/like.entity';
 import { Comment } from 'src/comment/comment.entity';
+import { Follow } from 'src/follow/follow.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -38,10 +39,16 @@ export class User extends BaseEntity {
   photos: Photo[];
 
   @OneToMany(() => Like, (like) => like.user)
-  likes;
+  likes: Like[];
 
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
+
+  @OneToMany(() => Follow, (follow) => follow.userTo)
+  followers: Follow[];
+
+  @OneToMany(() => Follow, (follow) => follow.userFrom)
+  following: Follow[];
 
   @CreateDateColumn()
   createdAt: Date;
