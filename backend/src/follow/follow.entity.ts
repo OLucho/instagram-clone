@@ -1,6 +1,7 @@
 import { User } from 'src/user/user.entity';
 import {
   BaseEntity,
+  Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
@@ -13,11 +14,17 @@ export class Follow extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  userToId: number;
+
+  @Column()
+  userFromId: number;
+
   @ManyToOne(() => User, (user) => user.followers)
-  userTo;
+  userTo: User[];
 
   @ManyToOne(() => User, (user) => user.following)
-  userFrom;
+  userFrom: User[];
 
   @CreateDateColumn()
   createdAt: Date;
