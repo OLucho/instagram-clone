@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PhotoModule } from 'src/photo/photo.module';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { UserController } from './user.controller';
 import { UserRepository } from './user.repository';
@@ -16,6 +17,7 @@ import { UserService } from './user.service';
       },
     }),
     TypeOrmModule.forFeature([UserRepository]),
+    forwardRef(() => PhotoModule),
   ],
   controllers: [UserController],
   providers: [UserService, JwtStrategy],

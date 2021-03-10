@@ -9,7 +9,7 @@ import { PhotoService } from './photo.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([PhotoRepository]),
-    UserModule,
+    forwardRef(() => UserModule),
     forwardRef(() => LikeModule),
   ],
   controllers: [PhotoController],

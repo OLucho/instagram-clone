@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Get,
@@ -13,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { PhotoService } from 'src/photo/photo.service';
 import { GetUser } from './decorator/get.user';
 import { ValidationUserDto } from './dto/create.user.dto';
 import { SignInDto } from './dto/signIn.dto';
@@ -21,7 +21,10 @@ import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private photoService: PhotoService,
+  ) {}
 
   @UsePipes(ValidationPipe)
   @Post()

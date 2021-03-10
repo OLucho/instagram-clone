@@ -9,7 +9,7 @@ import { LikeService } from './like.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([LikeRepository]),
-    UserModule,
+    forwardRef(() => UserModule),
     forwardRef(() => PhotoModule),
   ],
   controllers: [LikeController],
