@@ -19,5 +19,6 @@ export const Container = styled.div`
     margin-bottom: 5px;
     align-items: center;
     text-align: center;
+    text-transform: capitalize;
   }
 `;

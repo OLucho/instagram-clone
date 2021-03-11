@@ -12,7 +12,7 @@ import {
 import Input from '../../components/input';
 import gif from './styles/gif.gif';
 import logo from '../../assets/logo.png';
-import { getValidationErrors } from './validation';
+import { getValidationErrors } from '../../utils/validation';
 import api from '../../api';
 
 export default function Signup() {
@@ -24,10 +24,10 @@ export default function Signup() {
     try {
       formRef.current.setErrors([]);
       const schema = Yup.object().shape({
-        name: Yup.string().required('Name is obligatory'),
-        email: Yup.string().required('Email obligatory').email('Invalid email'),
-        username: Yup.string().required('Username is Required'),
-        password: Yup.string().required('Password is Required'),
+        name: Yup.string().required(),
+        email: Yup.string().required().email(),
+        username: Yup.string().required().max(8),
+        password: Yup.string().required(),
       });
       await schema.validate(data, { abortEarly: false });
       await api.post('/user', data);
