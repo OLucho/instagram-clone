@@ -106,9 +106,12 @@ export const Footer = styled.div`
   }
 `;
 
-export const ErrorMessage = styled.p`
-  color: #fc4850;
-  font-family: 'Roboto';
-  font-size: 11px;
-  margin-bottom: 5px;
+export const ErrorMessage = styled.div`
+  height: 2rem;
+  p {
+    color: #fc4850;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
 `;

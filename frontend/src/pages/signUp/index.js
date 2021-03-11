@@ -1,14 +1,24 @@
-import { Link } from 'react-router-dom';
-import { useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useRef, useState } from 'react';
 import * as Yup from 'yup';
-import { Container, Footer, Form, FormContainer, Gif } from './styles';
+import {
+  Container,
+  Footer,
+  Form,
+  FormContainer,
+  Gif,
+  ErrorMessage,
+} from './styles';
 import Input from '../../components/input';
 import gif from './styles/gif.gif';
 import logo from '../../assets/logo.png';
 import { getValidationErrors } from './validation';
+import api from '../../api';
 
 export default function Signup() {
   const formRef = useRef(null);
+  const history = useHistory();
+  const [serverError, setServerError] = useState('');
 
   const handleSubmit = async (data) => {
     try {
@@ -20,10 +30,15 @@ export default function Signup() {
         password: Yup.string().required('Password is Required'),
       });
       await schema.validate(data, { abortEarly: false });
+      await api.post('/user', data);
+      history.push('/signin');
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errors = getValidationErrors(error);
         formRef.current.setErrors(errors);
+      }
+      if (error.response) {
+        setServerError(error.response.data.message);
       }
     }
   };
@@ -37,6 +52,11 @@ export default function Signup() {
           <img src={logo} alt="logo" />
           <span>Register to upload images </span>
           <hr />
+          {serverError && (
+            <ErrorMessage>
+              <p>{serverError}</p>
+            </ErrorMessage>
+          )}
           <Input name="name" placeholder="Enter your name" />
           <Input name="username" placeholder="Enter your username" />
           <Input
