@@ -4,5 +4,6 @@ module.exports = {
   rules: {
     'prettier/prettier': ['warn'],
     'react/jsx-filename-extension': [0],
+    'react/react-in-jsx-scope': 'off',
   },
 };
