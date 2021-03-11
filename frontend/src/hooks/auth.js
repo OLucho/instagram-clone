@@ -17,18 +17,16 @@ export function AuthProvider({ children }) {
 
   const signIn = useCallback(async ({ username, password }) => {
     const auth = await api.post('/user/signin', { username, password });
-
-    if (auth.status === 200) {
-      const { token } = auth.data;
-      api.defaults.headers.authorization = `Bearer ${token}`;
+    if (auth.status === 201) {
+      const { accessToken } = auth.data;
+      api.defaults.headers.authorization = `Bearer ${accessToken}`;
       const user = await api.get('/user/auth/me');
-
-      localStorage.setItem('@Instagram:token', token);
+      localStorage.setItem('@Instagram:token', accessToken);
       localStorage.setItem('@Instagram:user', JSON.stringify(user.data));
 
       setData({
         user: user.data,
-        token,
+        token: accessToken,
       });
     }
   }, []);

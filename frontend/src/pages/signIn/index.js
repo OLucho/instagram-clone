@@ -6,10 +6,14 @@ import { Container, Footer, Form, FormContainer, ErrorMessage } from './styles';
 import Input from '../../components/input';
 import logo from '../../assets/logo.png';
 import { getValidationErrors } from '../../utils/validation';
+import { useAuth } from '../../hooks/auth';
 
 export default function Signup() {
   const formRef = useRef(null);
   const history = useHistory();
+
+  const { signIn } = useAuth();
+
   const [serverError, setServerError] = useState('');
 
   const handleSubmit = async (data) => {
@@ -20,6 +24,8 @@ export default function Signup() {
         password: Yup.string().required('Password is Required').min(5),
       });
       await schema.validate(data, { abortEarly: false });
+
+      signIn({ username: data.username, password: data.password });
       history.push('/');
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -50,7 +56,7 @@ export default function Signup() {
             name="password"
             placeholder="Enter your password"
           />
-          <button type="submit">Register</button>
+          <button type="submit">Log In</button>
           <hr />
 
           <span className="footer">
