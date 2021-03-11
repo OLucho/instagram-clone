@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { Form as Unform } from 'unform';
+import { Form as Unform } from '@unform/web';
 
 export const Container = styled.div`
   height: 100vh;

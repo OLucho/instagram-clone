@@ -18,5 +18,6 @@ export const Container = styled.div`
     color: #fc4850;
     margin-bottom: 5px;
     align-items: center;
+    text-align: center;
   }
 `;

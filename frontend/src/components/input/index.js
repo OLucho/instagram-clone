@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useRef, useEffect } from 'react';
-import { useField } from 'unform';
+import { useField } from '@unform/core';
 import { Container } from './styles';
 
 function Input({ name, ...rest }) {
