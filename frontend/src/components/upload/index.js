@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-nested-ternary */
 import React, { useState, useRef, useCallback } from 'react';
 import { useUpload } from '../../hooks/upload';
@@ -13,21 +14,25 @@ export default function Upload() {
   const inputFile = useRef(null);
   const inputBody = useRef(null);
 
-  const { error, loading, resetValues } = useUpload();
+  const { error, loading, resetValues, uploadPhotoAction } = useUpload();
 
   const [image, setImage] = useState('');
   const [body, setBody] = useState('');
   const [disabled, setDisabled] = useState(true);
 
-  const handleUpload = useCallback((e) => {
-    e.preventDefault();
+  const handleUpload = useCallback(
+    (e) => {
+      e.preventDefault();
+      const dataImage = {
+        file: inputFile.current.files[0],
+        body,
+      };
+      uploadPhotoAction(dataImage);
 
-    const dataImage = {
-      file: inputFile.current,
-      body,
-    };
-    console.log(dataImage);
-  }, []);
+      setDisabled(true);
+    },
+    [body]
+  );
 
   const handleInputFile = useCallback(
     (file) => {
@@ -71,6 +76,7 @@ export default function Upload() {
 
       <input
         ref={inputFile}
+        name="file"
         type="file"
         onChange={handleInputFile}
         accept="image/*"
