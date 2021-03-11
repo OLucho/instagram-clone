@@ -24,7 +24,7 @@ export class FeedController {
   @Get()
   @UseGuards(AuthGuard())
   @UsePipes(ValidationPipe)
-  async FeedData(
+  async feedData(
     @GetUser() User: User,
   ): Promise<{ isAuthor: boolean; isLiked: boolean; photo: Photo }> {
     const user = await this.userService.getUserFollows(User.id);
@@ -34,5 +34,15 @@ export class FeedController {
     const feedsPhotos = await this.photoService.getFeedPhotos(arrayUsersId);
 
     return this.feedService.getFeedData(feedsPhotos, User.id);
+  }
+
+  @Get('/follows')
+  @UseGuards(AuthGuard())
+  @UsePipes(ValidationPipe)
+  async viewFollows(@GetUser() user: User) {
+    const userFollows = await this.userService.getUserFollows(user.id);
+    const arrayUsersId = userFollows.following.map((_user) => _user.userToId);
+    arrayUsersId.push(user.id);
+    return await this.userService.getFollowsData(arrayUsersId);
   }
 }

@@ -84,7 +84,11 @@ export class UserService {
     return await this.userRepository.getUserFollows(id);
   }
 
-  async searchUsers(term) {
+  async getFollowsData(userFollowsId) {
+    return await this.userRepository.getFollowsData(userFollowsId);
+  }
+
+  async searchUsers(term: string) {
     return this.userRepository.searchUsers(term);
   }
 }

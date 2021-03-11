@@ -31,6 +31,12 @@ export class UserRepository extends Repository<User> {
     return await this.findOne({ where: { id } });
   }
 
+  async getFollowsData(arrayUsersId) {
+    return await this.createQueryBuilder('user')
+      .where('user.id IN (:...arrayUsersId)', { arrayUsersId })
+      .getMany();
+  }
+
   async updateAvatar(avatar: string, user: User): Promise<void> {
     user.avatar = avatar;
   }
