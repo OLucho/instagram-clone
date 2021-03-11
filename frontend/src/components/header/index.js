@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import logo from '../../assets/logo.png';
@@ -12,10 +12,31 @@ import {
   Input,
 } from './styles';
 import ModalUploadPhoto from '../modal/modalUploadPhoto';
+import SearchContainer from '../search';
+import { useSearch } from '../../hooks/search';
 
 export default function Header() {
   const [term, setTerm] = useState('');
   const { user, signOut } = useAuth();
+  const { searchAction, setUsers } = useSearch();
+
+  let time = null;
+
+  useEffect(() => {
+    clearTimeout(time);
+    if (term.trim()) {
+      time = setTimeout(() => {
+        searchAction(term);
+      }, 1000);
+    }
+    return () => {
+      setUsers([]);
+    };
+  }, [searchAction, term, setUsers]);
+
+  const toggleClose = () => {
+    setTerm('');
+  };
 
   return (
     <>
@@ -31,6 +52,7 @@ export default function Header() {
               value={term}
               onChange={(e) => setTerm(e.target.value)}
             />
+            {term.length > 0 && <SearchContainer toggleClose={toggleClose} />}
           </ContainerSearch>
 
           <ContainerOptions>
