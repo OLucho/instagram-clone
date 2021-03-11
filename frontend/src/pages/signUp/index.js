@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Container, Footer, Form, FormContainer, Gif } from './styles';
+import Input from '../../components/input';
 import gif from './styles/gif.gif';
 import logo from '../../assets/logo.png';
 
@@ -13,10 +14,13 @@ export default function Signup() {
           <img src={logo} alt="logo" />
           <span>Register to upload images </span>
           <hr />
-          <input value="" name="" />
-
+          <Input name="name" placeholder="Enter your name" />
+          <Input name="username" placeholder="Enter your username" />
+          <Input name="password" placeholder="Enter your password" />
+          <Input name="email" placeholder="Enter your email" />
           <button type="submit">Register</button>
           <hr />
+
           <span className="footer">
             By registering you accept our conditions, cookie policies and
             services
