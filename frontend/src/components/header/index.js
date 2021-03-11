@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { FaSearch, FaSignOutAlt, FaUser } from 'react-icons/fa';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaSearch, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import logo from '../../assets/logo.png';
 import { useAuth } from '../../hooks/auth';
 import {
@@ -11,6 +11,7 @@ import {
   ContainerOptions,
   Input,
 } from './styles';
+import ModalUploadPhoto from '../modal/modalUploadPhoto';
 
 export default function Header() {
   const [term, setTerm] = useState('');
@@ -33,6 +34,7 @@ export default function Header() {
           </ContainerSearch>
 
           <ContainerOptions>
+            <ModalUploadPhoto />
             <Link to={`/profile/${user && user.username}`}>
               <FaUser color="#222" size={25} />
             </Link>
