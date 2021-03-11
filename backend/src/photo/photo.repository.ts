@@ -1,23 +1,11 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { Photo } from './photo.entity';
-import { User } from 'src/user/user.entity';
 import { NotFoundException } from '@nestjs/common';
 
 @EntityRepository(Photo)
 export class PhotoRepository extends Repository<Photo> {
-  async uploadPhoto(
-    key: string,
-    user: User,
-    photoBody: string,
-  ): Promise<Photo> {
-    const photo = new Photo();
-    photo.body = photoBody;
-    photo.key = key;
-    photo.user = user;
-    photo.userId = user.id;
-    await photo.save();
-
-    return photo;
+  async uploadPhoto(photo: Photo): Promise<Photo> {
+    return await photo.save();
   }
 
   async getPhotoById(id: number): Promise<Photo> {

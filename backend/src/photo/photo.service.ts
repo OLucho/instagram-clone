@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/user.entity';
 import { Photo } from './photo.entity';
+import { fromDtoToEntity } from './photo.mapper';
 import { PhotoRepository } from './photo.repository';
 
 @Injectable()
@@ -15,7 +16,8 @@ export class PhotoService {
   ) {}
 
   async uploadPhoto(key: string, user: User, photoBody: string) {
-    const photo = await this.photoRepository.uploadPhoto(key, user, photoBody);
+    const photoToSave = fromDtoToEntity(key, user, photoBody);
+    const photo = await this.photoRepository.uploadPhoto(photoToSave);
 
     const photoCreated = await this.getPhotoById(photo.id);
     let isAuthor = false;
