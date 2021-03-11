@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import globalStyles from './globalStyles';
+import GlobalStyles from './globalStyles';
 
 ReactDOM.render(
   <React.StrictMode>
-    <globalStyles />
+    <GlobalStyles />
     <App />
   </React.StrictMode>,
+  // eslint-disable-next-line no-undef
   document.getElementById('root')
 );
