@@ -111,7 +111,7 @@ export default function CardFeed({ feed }) {
         </Suspense>
 
         <StylesTimeAgo>
-          <TimeAgo date={`${photo.created_at}Z`} formatter={formatter} />
+          <TimeAgo date={`${photo.createdAt}Z`} formatter={formatter} />
         </StylesTimeAgo>
 
         <Link

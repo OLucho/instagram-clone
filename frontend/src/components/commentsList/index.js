@@ -20,7 +20,7 @@ export default function CommentList({ comments }) {
             </div>
 
             <StylesTimeAgo>
-              <TimeAgo date={`${comment.created_at}Z`} formatter={formatter} />
+              <TimeAgo date={`${comment.createdAt}Z`} formatter={formatter} />
             </StylesTimeAgo>
           </Comment>
         ))}
