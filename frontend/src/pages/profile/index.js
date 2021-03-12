@@ -72,11 +72,16 @@ export default function Profile() {
       setLoading(false);
     }
   }
+
   return (
     <Layout>
       <Container>
         <DescriptionContainer>
-          <ImgProfile src={user.avatar || avatar} />
+          {user.avatar ? (
+            <ImgProfile src={`data:image/png;base64, ${user.avatar}`} />
+          ) : (
+            <ImgProfile src={avatar} />
+          )}
 
           <div>
             <Username>{user.username}</Username>

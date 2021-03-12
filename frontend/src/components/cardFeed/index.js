@@ -66,7 +66,7 @@ export default function CardFeed({ feed }) {
       <CardHeader>
         <Profile
           direction="row"
-          img={photo.user.username.avatar}
+          img={photo.user.avatar}
           username={photo.user.username}
         />
         <ModalMoreOptions isAuthor={isAuthor} photo={photo} />

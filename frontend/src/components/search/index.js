@@ -22,7 +22,7 @@ export default function SearchContainer({ toggleClose }) {
               <ContainerProfile key={user.id} onClick={toggleClose}>
                 <Profile
                   direction="row"
-                  img={user.avatar_url}
+                  img={user.avatar}
                   username={user.username}
                   name={user.name}
                 />

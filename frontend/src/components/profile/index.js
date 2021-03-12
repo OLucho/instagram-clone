@@ -15,7 +15,12 @@ export default function Profile({
     <Container direction={direction} usidebar={usidebar}>
       <Link to={`/profile/${username}`}>
         {img ? (
-          <Img src={img} alt="avatar" usidebar={usidebar} isOwner={isOwner} />
+          <Img
+            src={`data:image/png;base64, ${img}`}
+            alt="avatar"
+            usidebar={usidebar}
+            isOwner={isOwner}
+          />
         ) : (
           <Img src={avatar} usidebar={usidebar} isOwner={isOwner} />
         )}

@@ -23,7 +23,6 @@ export default function Main() {
     getFollows();
     getFeeds();
   }, [getFeeds, getFollows]);
-
   return (
     <>
       <Layout>
@@ -31,7 +30,7 @@ export default function Main() {
           <Aside>
             <ContainerOwner>
               <Profile
-                img={user && user.avatar_url}
+                img={user && user.avatar}
                 username={user && user.username}
                 isOwner
                 name={user && user.name}
@@ -46,7 +45,7 @@ export default function Main() {
                     direction="column"
                     usidebar
                     username={follow.username}
-                    img={follow.avatar_url}
+                    img={follow.avatar}
                     name={follow.name}
                   />
                 ))}
