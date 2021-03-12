@@ -1,5 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { SignInDto } from './dto/signIn.dto';
+import { UpdateUserDto } from './dto/update.user.dto';
 import { User } from './user.entity';
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -40,6 +41,18 @@ export class UserRepository extends Repository<User> {
   async updateAvatar(avatar: string, user: User): Promise<void> {
     user.avatar = avatar;
     user.save();
+  }
+
+  async updateUser(updateUserDto: UpdateUserDto, user: User) {
+    const { bio, email, name, password, username } = updateUserDto;
+
+    user.bio = bio;
+    user.email = email;
+    user.name = name;
+    user.username = username;
+    user.password = password;
+    user.save();
+    return user;
   }
 
   async signIn(signInDto: SignInDto): Promise<User> {

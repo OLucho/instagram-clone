@@ -10,6 +10,7 @@ import { UserRepository } from './user.repository';
 import { fromDtoToEntity } from './user.mapper';
 import { ValidationUserDto } from './dto/create.user.dto';
 import { SignInDto } from './dto/signIn.dto';
+import { UpdateUserDto } from './dto/update.user.dto';
 
 @Injectable()
 export class UserService {
@@ -37,6 +38,10 @@ export class UserService {
 
   async updateAvatar(avatar: string, user: User): Promise<void> {
     return this.userRepository.updateAvatar(avatar, user);
+  }
+
+  async updateUser(updateUserDto: UpdateUserDto, user: User) {
+    return this.userRepository.updateUser(updateUserDto, user);
   }
 
   async getUserById(id: number) {

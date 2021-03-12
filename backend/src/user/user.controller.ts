@@ -17,6 +17,7 @@ import { PhotoService } from 'src/photo/photo.service';
 import { GetUser } from './decorator/get.user';
 import { ValidationUserDto } from './dto/create.user.dto';
 import { SignInDto } from './dto/signIn.dto';
+import { UpdateUserDto } from './dto/update.user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
@@ -78,6 +79,16 @@ export class UserController {
   ): Promise<void> {
     const avatar = file.buffer.toString('base64');
     return this.userService.updateAvatar(avatar, user);
+  }
+
+  @Post('/update')
+  @UseInterceptors(FileInterceptor('file'))
+  @UseGuards(AuthGuard())
+  async updateUser(
+    @Body() updateUserDto: UpdateUserDto,
+    @GetUser() user: User,
+  ) {
+    return this.userService.updateUser(updateUserDto, user);
   }
 
   @Get('/auth/me')
