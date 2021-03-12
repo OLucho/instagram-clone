@@ -1,8 +1,11 @@
-import React, { lazy, useCallback, useState, Suspense, useEffect } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useCallback, useState, Suspense, useEffect } from 'react';
 import TimeAgo from 'react-timeago';
 import spanishString from 'react-timeago/lib/language-strings/es';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
-
+import { FaHeart, FaComment } from 'react-icons/fa';
+import { FiHeart } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import ModalMoreOptions from '../modal/modalMoreOptions';
 import Profile from '../profile';
 import {
@@ -14,18 +17,15 @@ import {
   TimeAgo as StylesTimeAgo,
   CardFooter,
 } from './styles';
-import { FaHeart, FaComment } from 'react-icons/fa';
-import { FiHeart } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
-import api from '../../services/api';
+import api from '../../api';
+import CommentList from '../commentsList';
 
 const formatter = buildFormatter(spanishString);
-const CommentList = lazy(() => import('../commentList'));
 
 export default function CardFeed({ feed }) {
   const { isAuthor, isLiked, photo } = feed;
 
-  const [commentsPhoto, setCommentsPhoto] = useState(photo.getComments);
+  const [commentsPhoto, setCommentsPhoto] = useState(photo.comment);
   const [like, setLike] = useState(isLiked);
   const [comment, setComment] = useState('');
   const [disabled, setDisabled] = useState(true);
@@ -34,7 +34,7 @@ export default function CardFeed({ feed }) {
     async (e) => {
       e.preventDefault();
       const res = await api.post(`/comment/${photo.id}`, { body: comment });
-      if (res.status === 200) {
+      if (res.status === 201) {
         setCommentsPhoto((state) => [...state, res.data]);
       }
       setComment('');
@@ -44,9 +44,9 @@ export default function CardFeed({ feed }) {
   );
 
   const toggleLike = useCallback(
-    async (photo_id) => {
-      const res = await api.post(`/likes/${photo_id}`);
-      if (res.status === 200) {
+    async (photoId) => {
+      const res = await api.post(`/like/${photoId}`);
+      if (res.status === 201) {
         setLike(!like);
       }
     },
@@ -54,7 +54,7 @@ export default function CardFeed({ feed }) {
   );
 
   useEffect(() => {
-    if (comment.trim()) {
+    if (comment.length > 5) {
       setDisabled(false);
     } else {
       setDisabled(true);
@@ -66,8 +66,8 @@ export default function CardFeed({ feed }) {
       <CardHeader>
         <Profile
           direction="row"
-          img={photo.uploadedBy.avatar_url}
-          username={photo.uploadedBy.username}
+          img={photo.user.username.avatar}
+          username={photo.user.username}
         />
         <ModalMoreOptions isAuthor={isAuthor} photo={photo} />
       </CardHeader>
@@ -93,7 +93,7 @@ export default function CardFeed({ feed }) {
 
       <CardDetails>
         <p style={{ fontWeight: 'bold' }}>
-          {photo.uploadedBy.username}
+          {photo.user.username}
           <span
             style={{
               marginLeft: 5,
