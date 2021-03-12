@@ -5,6 +5,7 @@ import SignUp from '../pages/signUp';
 import SignIn from '../pages/signIn';
 import Post from '../pages/post';
 import Route from './route';
+import Profile from '../pages/profile';
 
 export default function Routes() {
   return (
@@ -13,6 +14,12 @@ export default function Routes() {
         <Switch>
           <Route exact path="/" component={Main} isPrivate />
           <Route exact path="/photo/:photoId" component={Post} isPrivate />
+          <Route
+            exact
+            path="/profile/:username"
+            component={Profile}
+            isPrivate
+          />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/signin" component={SignIn} />
         </Switch>
