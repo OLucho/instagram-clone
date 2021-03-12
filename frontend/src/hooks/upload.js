@@ -16,7 +16,7 @@ export function UploadProvider({ children }) {
       formData.append('body', dataImage.body);
       const res = await api.post('/photo/upload', formData);
 
-      if (res.status === 200) {
+      if (res.status === 201) {
         setData(res);
       }
     } catch (err) {
