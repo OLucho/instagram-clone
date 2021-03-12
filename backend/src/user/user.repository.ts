@@ -39,6 +39,7 @@ export class UserRepository extends Repository<User> {
 
   async updateAvatar(avatar: string, user: User): Promise<void> {
     user.avatar = avatar;
+    user.save();
   }
 
   async signIn(signInDto: SignInDto): Promise<User> {
