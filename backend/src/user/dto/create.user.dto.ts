@@ -2,17 +2,17 @@ import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 
 export class ValidationUserDto {
   @IsNotEmpty()
-  name;
+  name: string;
 
   @MaxLength(8)
   @IsNotEmpty()
-  username;
+  username: string;
 
   @IsNotEmpty()
   @IsEmail()
-  email;
+  email: string;
 
   @MinLength(5)
   @IsNotEmpty()
-  password;
+  password: string;
 }
