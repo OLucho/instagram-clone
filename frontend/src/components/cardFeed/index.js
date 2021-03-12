@@ -71,7 +71,7 @@ export default function CardFeed({ feed }) {
         />
         <ModalMoreOptions isAuthor={isAuthor} photo={photo} />
       </CardHeader>
-      <PhotoCard src={photo.photo_url} />
+      <PhotoCard src={`data:image/png;base64, ${photo.key}`} />
       <CardControls>
         {like ? (
           <FaHeart
