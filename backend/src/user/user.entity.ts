@@ -6,12 +6,15 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { Like } from 'src/like/like.entity';
 import { Comment } from 'src/comment/comment.entity';
 import { Follow } from 'src/follow/follow.entity';
 
+@Unique(['username'])
+@Unique(['email'])
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
