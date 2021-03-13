@@ -6,6 +6,7 @@ import SignIn from '../pages/signIn';
 import Post from '../pages/post';
 import Route from './route';
 import Profile from '../pages/profile';
+import Edit from '../pages/edit';
 
 export default function Routes() {
   return (
@@ -20,6 +21,7 @@ export default function Routes() {
             component={Profile}
             isPrivate
           />
+          <Route exact path="/edit/:username" component={Edit} isPrivate />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/signin" component={SignIn} />
         </Switch>

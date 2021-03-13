@@ -5,6 +5,8 @@ import api from '../api';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const [error, setError] = useState('');
+
   const [data, setData] = useState(() => {
     const token = localStorage.getItem('@Instagram:token');
     const user = localStorage.getItem('@Instagram:user');
@@ -37,8 +39,38 @@ export function AuthProvider({ children }) {
     setData({ token: null, user: null });
   }
 
+  const editUser = useCallback(
+    async ({ username, password, name, email, bio }) => {
+      try {
+        const res = await api.post('/user/update', {
+          username,
+          password,
+          name,
+          email,
+          bio,
+        });
+        if (res.status === 201) {
+          signOut();
+          setError('');
+        }
+      } catch (err) {
+        setError(err.response.data.message);
+      }
+    },
+    []
+  );
+
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{
+        user: data.user,
+        error,
+        signIn,
+        signOut,
+        editUser,
+        setError,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
