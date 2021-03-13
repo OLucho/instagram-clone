@@ -1,0 +1,27 @@
+{
+  "name": "instagram-clone",
+  "version": "1.0.0",
+  "description": "Instagram Clone made with NestJS, ReactJS",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^6.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "concurrently \"npm run dev-frontend\" \"npm run dev-backend\"",
+    "dev-frontend": "cd frontend && npm start",
+    "dev-backend": "cd backend && npm run start:dev",
+    "frontend-install": "cd frontend && npm install",
+    "backend-install": "cd backend && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OLucho/instagram-clone.git"
+  },
+  "author": "Lucho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OLucho/instagram-clone/issues"
+  },
+  "homepage": "https://github.com/OLucho/instagram-clone#readme"
+}
