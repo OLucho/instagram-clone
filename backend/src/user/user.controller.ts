@@ -82,8 +82,8 @@ export class UserController {
   }
 
   @Post('/update')
-  @UseInterceptors(FileInterceptor('file'))
   @UseGuards(AuthGuard())
+  @UsePipes(ValidationPipe)
   async updateUser(
     @Body() updateUserDto: UpdateUserDto,
     @GetUser() user: User,

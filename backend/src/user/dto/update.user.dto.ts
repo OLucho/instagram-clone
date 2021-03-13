@@ -4,6 +4,7 @@ export class UpdateUserDto {
   @MaxLength(8)
   name: string;
 
+  @MaxLength(8)
   username: string;
 
   @IsEmail()
