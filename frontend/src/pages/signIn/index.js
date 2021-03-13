@@ -25,7 +25,7 @@ export default function Signup() {
       });
       await schema.validate(data, { abortEarly: false });
 
-      signIn({ username: data.username, password: data.password });
+      await signIn({ username: data.username, password: data.password });
       history.push('/');
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
