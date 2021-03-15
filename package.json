@@ -8,12 +8,13 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "cd backend && npm run start:dev",
+    "start": "npm run backend-install && npm run start:dev",
     "dev": "concurrently \"npm run dev-frontend\" \"npm run dev-backend\"",
     "dev-frontend": "cd frontend && npm start",
     "dev-backend": "cd backend && npm run start:dev",
     "frontend-install": "cd frontend && npm install",
-    "backend-install": "cd backend && npm install"
+    "backend-install": "cd backend && npm install",
+    "build-client": "cd client && npm run build && mv build ../backend/build"
   },
   "repository": {
     "type": "git",
