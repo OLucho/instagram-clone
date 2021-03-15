@@ -7,6 +7,8 @@ import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
 import { FollowModule } from './follow/follow.module';
 import { FeedModule } from './feed/feed.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
   imports: [
     TypeOrmModule.forRoot(TypeOrmConfig),
@@ -16,6 +18,9 @@ import { FeedModule } from './feed/feed.module';
     CommentModule,
     FollowModule,
     FeedModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'build'),
+    }),
   ],
   controllers: [],
   providers: [],
