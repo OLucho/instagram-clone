@@ -8,7 +8,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "cd backend && npm run start:prod",
+    "start": "cd backend && npm run start:dev",
     "dev": "concurrently \"npm run dev-frontend\" \"npm run dev-backend\"",
     "dev-frontend": "cd frontend && npm start",
     "dev-backend": "cd backend && npm run start:dev",
