@@ -18,7 +18,7 @@
     "frontend-install": "cd frontend && npm install",
     "backend-install": "cd backend && npm install",
     "build-client": "cd client && npm run build && mv build ../backend/build",
-    "prestart:prod": "cd backend && npm run build",
+    "prestart:prod": "cd backend && npm run backend-install && npm run build",
     "postinstall": "npm run prestart:prod"
   },
   "repository": {
